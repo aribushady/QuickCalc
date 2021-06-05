@@ -7,25 +7,26 @@ namespace QuickCalc
     {
         static void Main(string[] args)
         {
-            Console.WriteLine($"Year 1 of Payments with $200 extra per month:");
-            ExtraPaymentPrinciple(1, 72, 200, 426);
+            //Console.WriteLine($"Year 1 of Payments with $200 extra per month:");
+            //ExtraPaymentPrinciple(1, 6, 100, 426);
 
             //Console.WriteLine($"Year 2 of payements with $250 extra per month:");
-            //ExtraPaymentPrinciple(13, 24, 600, 438);
+            //ExtraPaymentPrinciple(7, 24, 350, 433);
 
             //Console.WriteLine($"Year 3 of payements with $450 extra per month:");
-            //ExtraPaymentPrinciple(25, 36, 735, 450);
+            //ExtraPaymentPrinciple(19, 54, 500, 439);
 
-            //Console.WriteLine($"Year 4 of payements with $525 extra per month:");
-            //ExtraPaymentPrinciple(37, 48, 835, 463);
+            ////Console.WriteLine($"Year 4 of payements with $525 extra per month:");
+            ////ExtraPaymentPrinciple(37, 48, 835, 463);
 
-            //Console.WriteLine($"Year 5 of payements with $1000 extra per month:");
-            //ExtraPaymentPrinciple(49, 60, 1500, 476);
-
-
+            ////Console.WriteLine($"Year 5 of payements with $1000 extra per month:");
+            ////ExtraPaymentPrinciple(49, 60, 1500, 476);
+               
+            Console.WriteLine(MonthlyMortgagePayment(238000, 0.0275, 30));
+         
         }
 
-       private static void ExtraPaymentPrinciple(int paymentTerm, int numPaysments, int extraAmount, int prinicipleStartAmount)
+        static void ExtraPaymentPrinciple(int paymentTerm, int numPaysments, int extraAmount, int prinicipleStartAmount)
         {
             int totalPaid = 0;
             int principlePayment = extraAmount + prinicipleStartAmount;
@@ -53,6 +54,17 @@ namespace QuickCalc
 
             }
             Console.WriteLine($"Total paid in year with extra ${extraAmount} month: {totalPaid}");
+        }
+
+        static double MonthlyMortgagePayment(double loan, double interestRate, int leaseTerm)
+        {
+            int monthsInYear = 12;
+            int monthsInLeaseTerm = leaseTerm * monthsInYear;
+            double interestPerMonth = interestRate / monthsInYear;
+
+            double payment = loan * (interestPerMonth) * Math.Pow(1 + interestPerMonth, monthsInLeaseTerm) / (Math.Pow(1 + interestPerMonth, monthsInLeaseTerm) - 1);
+
+            return payment;
         }
     }
 }
