@@ -23,9 +23,9 @@ namespace QuickCalc
             ////ExtraPaymentPrinciple(49, 60, 1500, 476);
                
             Console.WriteLine(MonthlyMortgagePayment(238000, 0.0275, 30));
+            Amortization(238000, 0.0275, 30);
          
         }
-
         static void ExtraPaymentPrinciple(int paymentTerm, int numPaysments, int extraAmount, int prinicipleStartAmount)
         {
             int totalPaid = 0;
@@ -56,6 +56,23 @@ namespace QuickCalc
             Console.WriteLine($"Total paid in year with extra ${extraAmount} month: {totalPaid}");
         }
 
+        static void Amortization(double loan, double interestRate, int leaseTerm)
+        {
+            int monthsInYear = 12;
+            int monthsInLeaseTerm = monthsInYear * leaseTerm;
+            double newLoanAmount = loan;
+            
+
+            for (int i = 1; i <= monthsInLeaseTerm; i++)
+            {
+                double principleAmount = Math.Round(MonthlyMortgagePayment(loan, interestRate, leaseTerm) - (newLoanAmount * interestRate) / 12, 2);
+                newLoanAmount -= principleAmount; 
+                
+                Console.WriteLine($"{i}: Principle Ammount: {principleAmount} Remaing Loan: {Math.Round(newLoanAmount, 2)} ");
+            }
+           
+        }
+
         static double MonthlyMortgagePayment(double loan, double interestRate, int leaseTerm)
         {
             int monthsInYear = 12;
@@ -64,7 +81,7 @@ namespace QuickCalc
 
             double payment = loan * (interestPerMonth) * Math.Pow(1 + interestPerMonth, monthsInLeaseTerm) / (Math.Pow(1 + interestPerMonth, monthsInLeaseTerm) - 1);
 
-            return payment;
+            return Math.Round(payment, 2);
         }
     }
 }
